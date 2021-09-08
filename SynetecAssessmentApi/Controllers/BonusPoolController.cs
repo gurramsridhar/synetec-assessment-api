@@ -19,11 +19,17 @@ namespace SynetecAssessmentApi.Controllers
         [HttpPost()]
         public async Task<IActionResult> CalculateBonus([FromBody] CalculateBonusDto request)
         {
-            var bonusPoolService = new BonusPoolService();
-
-            return Ok(await bonusPoolService.CalculateAsync(
-                request.TotalBonusPoolAmount,
-                request.SelectedEmployeeId));
+            if (request.TotalBonusPoolAmount > 0 && request.SelectedEmployeeId > 0)
+            {
+                var bonusPoolService = new BonusPoolService();
+                return Ok(await bonusPoolService.CalculateAsync(
+                    request.TotalBonusPoolAmount,
+                    request.SelectedEmployeeId));
+            }
+            else
+            {
+                return Ok(new BonusPoolCalculatorResultDto { ResultSuccess= false, Message = "Invalid data request, Please try with valid data" });
+            }
         }
     }
 }

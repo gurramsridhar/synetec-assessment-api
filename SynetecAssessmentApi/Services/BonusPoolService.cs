@@ -55,8 +55,18 @@ namespace SynetecAssessmentApi.Services
                 .Include(e => e.Department)
                 .FirstOrDefaultAsync(item => item.Id == selectedEmployeeId);
 
+            // Checking the Employee found with reuested id
+            if (employee == null)
+            {
+                return new BonusPoolCalculatorResultDto
+                {
+                    ResultSuccess = false,
+                    Message = "No employee found"
+                };
+            }
+
             //get the total salary budget for the company
-            int totalSalary = (int)_dbContext.Employees.Sum(item => item.Salary);
+            int totalSalary = _dbContext.Employees.Sum(item => item.Salary);
 
             //calculate the bonus allocation for the employee
             decimal bonusPercentage = (decimal)employee.Salary / (decimal)totalSalary;
@@ -64,6 +74,8 @@ namespace SynetecAssessmentApi.Services
 
             return new BonusPoolCalculatorResultDto
             {
+                ResultSuccess = true,
+                Message = "Bonus Calculation successfully completed ",
                 Employee = new EmployeeDto
                 {
                     Fullname = employee.Fullname,

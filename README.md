@@ -10,6 +10,9 @@ In this repository, you will find the base project and instructions on what to d
 
 Please follow the instructions in the Instructions.pdf, found in this repository
 
+Please explain the work that you did or any challenges that you faced, either by comments in code or in an email. 
+In case the requirements are not met or they are not finished please explain the reasoning behind that.
+
 ## How to submit your completed test
 
 To sumbit your test, please 
